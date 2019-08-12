@@ -72,15 +72,15 @@
 
   // TODO: your code goes here :)
 
-  $("#generateDoggoBtn").click(clickDog);
+  $("#generateDoggoBtn").click(findDogImage);
 
-  function clickDog () {
-    $("#doggoContainer").load("https://dog.ceo/api/breeds/image/random", function print () {console.log('what up')});
-    // function appendDoggoContainer () {
-    //   $("#doggoContainer").append("<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Cat_poster_1.jpg/1920px-Cat_poster_1.jpg'>");
-    // };
-    $("#generateDoggoBtn").html("Generating Doggo...")
+  function findDogImage () {
+    $("#generateDoggoBtn").html("Generating Doggo...") // disables button
     $("#generateDoggoBtn").attr("disabled", true) // .prop() and .attr() both work
+    $.getJSON("https://dog.ceo/api/breeds/image/random", function insertDogImageElement (data) {
+      var dogImageLink = data.message;
+      $("<img src=" + dogImageLink + "></img>").appendTo("#doggoContainer");
+    });
   }
 
   //
