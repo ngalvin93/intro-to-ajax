@@ -32,7 +32,7 @@
     $('#jumbotronContainer2').load('jumbotron.html')
     $('#loadBtn2').remove()
   }
-
+  
   //
   // Pretty simple, right?
   //
@@ -71,6 +71,17 @@
   //
 
   // TODO: your code goes here :)
+
+  $("#generateDoggoBtn").click(clickDog);
+
+  function clickDog () {
+    $("#doggoContainer").load("https://dog.ceo/api/breeds/image/random", function print () {console.log('what up')});
+    // function appendDoggoContainer () {
+    //   $("#doggoContainer").append("<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Cat_poster_1.jpg/1920px-Cat_poster_1.jpg'>");
+    // };
+    $("#generateDoggoBtn").html("Generating Doggo...")
+    $("#generateDoggoBtn").attr("disabled", true) // .prop() and .attr() both work
+  }
 
   //
   // Cool. Now let's kick it up a notch and allow selecting a specific breed of dog!
