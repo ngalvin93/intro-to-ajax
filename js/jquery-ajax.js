@@ -75,13 +75,26 @@
   $("#generateDoggoBtn").click(findDogImage);
 
   function findDogImage () {
-    $("#generateDoggoBtn").html("Generating Doggo...") // disables button
-    $("#generateDoggoBtn").attr("disabled", true) // .prop() and .attr() both work
-    $.getJSON("https://dog.ceo/api/breeds/image/random", function insertDogImageElement (data) {
-      var dogImageLink = data.message;
-      $("<img src=" + dogImageLink + "></img>").appendTo("#doggoContainer");
+    $("#generateDoggoBtn").text("Generating Doggo...") // changes text
+    $("#generateDoggoBtn").prop("disabled", true) // this disables the button, .prop() and .attr() both work
+    $.ajax({ // this is the ajax request
+      dataType: 'json',
+      url: 'https://dog.ceo/api/breeds/image/random',
+      success: insertDogImageElement,
+      error: function (error) { // this runs if the request is unsucessful
+        $("#doggoContainer").html("<h1>Your dog can't be found!</h1>");
+      }
     });
-  }
+  };
+
+  function insertDogImageElement (data) { // this fires if the ajax request is successful 
+    var dogImageLink = data.message; // targets img link
+      $("#doggoContainer").html(`<img id="image" style="padding-top: 30px;" src="${dogImageLink}"</img>`);
+      $('#image').on('load', function () {
+        $("#generateDoggoBtn").text("Generate Doggo"); // changes text back to regular
+        $("#generateDoggoBtn").prop("disabled", false); // reactivates the button
+      });
+    };
 
   //
   // Cool. Now let's kick it up a notch and allow selecting a specific breed of dog!
@@ -118,6 +131,49 @@
   //
 
   // TODO: your code goes here :)
+
+  function insertDogBreeds (x, ajaxResult) {
+    $("")
+  }
+
+// function partial(fn, arg1, arg2) {
+//   return function (arg3) {
+//     fn(arg1, arg2, arg3)
+//   }
+// }
+
+  function getInfo () {
+    var x = 'what if I need this variable inside insertDogBreeds ???'
+
+    const insertDogBreedsWithXIncluded = insertDogBreeds.bind(null, x)
+    $.getJSON("https://dog.ceo/api/breeds/list", insertDogBreedsWithXIncluded);
+
+    // $.getJSON('foo.com', function (ajaxResult) {
+    //   insertDogBreeds(ajaxResult, x)
+    // })
+  }
+
+  $(document).ready(getInfo)
+
+
+
+
+function add (a, b, c) {
+  return a + b + c
+}
+
+// const add7 = function (a) {
+//   return 7 + a
+// }
+const add7 = add.bind(null, 5, 2)
+console.assert(add7(2) === 9, 'function binding works!')
+
+const add12 = add.bind(null,12)
+
+$(document).ready(function
+  inserts('<select></select>').html("#selectBreedContainer)
+  li
+
 
   //
   // Excellent work!
